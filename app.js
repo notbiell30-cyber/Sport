@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const userInput = document.getElementById("email").value.trim();
       const passwordInput = document.getElementById("password").value;
 
-      // Validação estrita conforme solicitado: login / 123
+      // Validação estrita: login / 123
       if (userInput === "login" && passwordInput === "123") {
         alert("Login efetuado com sucesso! Redirecionando...");
         window.location.href = "index.html"; // Redireciona para a home
