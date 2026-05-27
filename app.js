@@ -88,8 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle Auth Form View Toggling (Login / Sign up)
   const toggle = document.getElementById("mode-toggle");
+  let mode = "login";
+  
   if (toggle) {
-    let mode = "login";
     const t = document.getElementById("title");
     const s = document.getElementById("subtitle");
     const submit = document.getElementById("submit-btn");
@@ -116,9 +117,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Global Demo Form Validation Intercept
-  document.querySelectorAll("form").forEach(f => f.addEventListener("submit", e => {
-    e.preventDefault();
-    alert("Demo: O sistema de autenticação está offline.");
-  }));
+  // Login Validation Intercept
+  const authForm = document.querySelector(".form");
+  if (authForm) {
+    authForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      
+      // Se o usuário alternou para a aba de cadastro
+      if (mode === "signup") {
+        alert("Conta criada com sucesso! Você já pode fazer o login.");
+        toggle.click(); // Retorna automaticamente para o modo login
+        return;
+      }
+
+      // Captura os valores inseridos pelo usuário
+      const userInput = document.getElementById("email").value.trim();
+      const passwordInput = document.getElementById("password").value;
+
+      // Validação estrita conforme solicitado: login / 123
+      if (userInput === "login" && passwordInput === "123") {
+        alert("Login efetuado com sucesso! Redirecionando...");
+        window.location.href = "index.html"; // Redireciona para a home
+      } else {
+        alert("Usuário ou senha incorretos. Tente novamente.");
+      }
+    });
+  }
 });
